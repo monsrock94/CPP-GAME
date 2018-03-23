@@ -33,7 +33,7 @@ public:
 	// provide a method for counting bulls & cows, and increasing try #
 
 	//counts bulls & cows and increase try # assuming valid guess
-	FBullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
 
 
 // ^^ Please try and ignore this and focus on the interface above ^^
