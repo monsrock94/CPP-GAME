@@ -1,11 +1,13 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 FBullCowGame::FBullCowGame() { Reset(); }
 
 int32 FBullCowGame::GetMaxTries() const {return MyMaxTries;}
 int32 FBullCowGame::GetCurrentTry() const {return MyCurrentTry;}
 int32 FBullCowGame::GetHiddenWordLength() const{return static_cast<int32>(MyHiddenWord.length());}
-
+bool FBullCowGame::IsGameWon() const {return bGameWon;}
 
 
 void FBullCowGame::Reset()
@@ -16,18 +18,16 @@ void FBullCowGame::Reset()
 	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
+	bGameWon = false;
 	return;
 }
 
-bool FBullCowGame::IsGameWon() const
-{
-	return false;
-}
+
 
 EGUESSSTATUS FBullCowGame::CheckGuessValidity(FString Guess) const
 {
 	
-	if (false)//if not an isogram
+	if (!IsIsogram(Guess))//if not an isogram
 	{
 		return EGUESSSTATUS::NOT_ISOGRAM;
 	}
@@ -82,6 +82,21 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 		}
 			
 	}
+	if (BullCowCount.Bulls == MyHiddenWord.length()) {
+		 bGameWon = true;
+	}
+	else
+	{
+		bGameWon = false;
+	}
 	return BullCowCount;
+}
+
+bool FBullCowGame::IsIsogram(FString) const 
+{
+	//TODO get the guess from the user
+	//TODO compare them against hash table for duplicate letter
+	//TODO return if the word is isogram(true) or not isogram(false) accordingly
+	return true;
 }
 
