@@ -81,7 +81,7 @@ FText GetValidGuess()// TODO change to GetValidGuess
 		int32 CurrentTry = BCGame.GetCurrentTry();
 
 		// get a guess from the player
-		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		std::cout << "Try " << CurrentTry <<". of "<<BCGame.GetMaxTries() << ". Enter your guess: ";
 		std::getline(std::cin, Guess);
 
 		GuessStatus = BCGame.CheckGuessValidity(Guess);
@@ -89,13 +89,13 @@ FText GetValidGuess()// TODO change to GetValidGuess
 		switch (GuessStatus)
 		{
 		case EGUESSSTATUS::NOT_ISOGRAM:
-			std::cout << "please enter an ISOGRAM i.e a word with no repeating letters!!.\n";
+			std::cout << "please enter an ISOGRAM i.e a word with no repeating letters!!.\n\n";
 			break;
 		case EGUESSSTATUS::Wrong_Length:
 			std::cout << "please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 		case EGUESSSTATUS::Not_Lowercase:
-			std::cout << "please enter all letters in lower case.\n" << BCGame.GetHiddenWordLength() << " letter word.\n";
+			std::cout << "please enter all letters in lower case.\n" << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 		default:
 			break;
