@@ -3,10 +3,13 @@ This acts as the view in a MVC pattern, and is responsible for all user interact
 for game logic see the FBullCowGame class.
 */
 #include <iostream>
-#include <string>	
+#include <string>
+#include <limits>
 #include "FBullCowGame.h"
 
 using FText = std::string;
+
+int main();
 
 void PrintIntro();
 void PlayGame();
@@ -33,11 +36,35 @@ int main()
 // introduce the game
 void PrintIntro()
 {
+	bool CorrectChoice = false;
+	FText Choice = "";
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << std::endl;
+	std::cout << "          }   {         ___ " << std::endl;
+	std::cout << "          (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\ /          \\ /-------\\ " << std::endl;
+	std::cout << "  / | BULL |O            O| COW  | \\ " << std::endl;
+	std::cout << " *  |-,--- |              |------|  * " << std::endl;
+	std::cout << "    ^      ^              ^      ^ " << std::endl;
 
-	std::cout << "\nWelcome to Bulls and Cows, a fun word game.\n";
+	do 
+	{
+		std::cout << "Please choose the length of the words you want to play for ";
+		std::cout << "3 or 4 or 5 or 6 ";
+		std::getline(std::cin, Choice);
+		if ((Choice == "3" || Choice == "4" || Choice == "5" || Choice == "6"))
+		{
+			BCGame.GetHiddenWord(stoi(Choice));
+			CorrectChoice = true;
+		}
+		
+	} while (!CorrectChoice);
+	
+
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
+	
 	return;
 }
 
@@ -75,6 +102,7 @@ FText GetValidGuess()// TODO change to GetValidGuess
 	EGUESSSTATUS GuessStatus = EGUESSSTATUS::NOT_VALID;
 	FText Guess = "";
 
+
 	do 
 	{
 
@@ -82,8 +110,9 @@ FText GetValidGuess()// TODO change to GetValidGuess
 
 		// get a guess from the player
 		std::cout << "Try " << CurrentTry <<". of "<<BCGame.GetMaxTries() << ". Enter your guess: ";
-		std::getline(std::cin, Guess);
+		
 
+		std::getline(std::cin, Guess);
 		GuessStatus = BCGame.CheckGuessValidity(Guess);
 
 		switch (GuessStatus)
